@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 
     if @user.save
       redirect_to new_user_path
+    else
+      render 'new'
     end
   end
 

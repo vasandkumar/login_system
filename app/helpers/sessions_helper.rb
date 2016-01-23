@@ -28,11 +28,22 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
+  def is_admin?
+    user = UserRole.find_by(:user_id => session[:user_id], :role_id => Role.find_by(:role_name => LOGIN_SYSTEM_ADMIN).id)
+    if user
+      true
+    else
+      false
+    end
+  end
+
+
   def logged_in?
     !current_user.nil?
   end
 
   def log_out
+    forget(current_user)
     session.delete(:user_id)
     @current_user = nil
   end

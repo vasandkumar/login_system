@@ -1,0 +1,55 @@
+<div class="row placeholders">
+  <div class="col-xs-6 col-sm-3 placeholder">
+
+    <h4>Username</h4>
+    <span class="text-muted"><%= @user.username %></span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+
+    <h4>Email</h4>
+    <span class="text-muted"><%= @user.email %></span>
+  </div>
+</div>
+<div class="row placeholders">
+  <div class="col-xs-6 col-sm-3 placeholder">
+
+    <h4>Login Attempts</h4>
+    <span class="text-muted"><%= @user.login_attempts.count %></span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+
+    <h4>Successful Attempts</h4>
+    <span class="text-muted"><%= @user.login_attempts.where(:success => true).count %></span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+
+    <h4>Failed Attempts</h4>
+    <span class="text-muted"><%= @user.login_attempts.where(:success => false).count %></span>
+  </div>
+</div>
+<% if @user.login_attempts.present? %>
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>IP Address</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Region</th>
+        <th>Success</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @user.login_attempts.each_with_index do |attempt,i| %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td><%= attempt.ip_address %></td>
+            <td><%= attempt.country_name %></td>
+            <td><%= attempt.city_name %></td>
+            <td><%= attempt.real_region_name %></td>
+            <td><%= attempt.success.to_s %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

@@ -1,0 +1,24 @@
+<% if @users.present? %>
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>User Name</th>
+    <th>Email</th>
+    <th>Login Attempts</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each_with_index do |user,i| %>
+  <tr>
+    <th scope="row"><%= i+1 %></th>
+    <td><%= user.username %></td>
+    <td><%= user.email %></td>
+    <td><%= user.login_attempts.count %></td>
+    <td><%= link_to "View User", admin_user_view_path(user.id) %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
