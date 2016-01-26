@@ -1,0 +1,33 @@
+<%= form_for(:blocking,:url => admin_block_submit_path, :html => {:class=>'form-horizontal'}) do |f| %>
+    <div class="form-group">
+      <%= f.label :block_category, :class => 'col-sm-2 control-label' %>
+      <div class="col-sm-6">
+        <%= f.text_field :block_category, :value => params[:category] , :class => 'form-control', :readonly => true %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :block_type, :class => 'col-sm-2 control-label' %>
+      <div class="col-sm-6">
+        <%= f.text_field :block_type , :class => 'form-control' %>
+      </div>
+    </div>
+    <%= f.hidden_field :blocked_by, :value => session[:user_id], :class => 'form-control' %>
+    <div class="form-group">
+      <%= f.label :block_param, :class => 'col-sm-2 control-label' %>
+      <div class="col-sm-6">
+        <%= f.text_field :block_param, :value => params[:id] , :class => 'form-control', :readonly => true %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :reason, :class => 'col-sm-2 control-label' %>
+      <div class="col-sm-6">
+        <%= f.text_area :reason, :class => 'form-control',size: "300" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-6">
+        <%= f.submit "Block", :class => 'btn btn-default' %> | <%= link_to "Back", admin_users_path , :class => 'btn btn-default' %>
+      </div>
+    </div>
+
+<% end %>

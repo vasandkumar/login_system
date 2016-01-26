@@ -18,12 +18,23 @@ class SessionsController < ApplicationController
       end
     end
     if user && user.authenticate(params[:session][:password])
-      log_in user
-      attempt.update_attributes( :success => true )
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
+      if user.blocked?
+        message = "Account is Blocked."
+        flash.now[:error] = message
+        render 'new'
+      elsif user.activated?
+        log_in user
+        attempt.update_attributes(:success => true)
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        redirect_to user
+      else
+        message = "Account not activated. "
+        message += "Check your email for the activation link or resend Activation Mail <a href= \"#{new_activate_path}\"> Click Here</a>"
+        flash.now[:danger] = message.html_safe
+        render 'new'
+      end
     else
-      flash.now[:danger] = 'Invalid email/password combination'
+      flash.now[:error] = 'Invalid email/password combination'
       render 'new'
     end
   end

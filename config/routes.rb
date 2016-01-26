@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   root 'sessions#new'
   resources :users
 
@@ -11,6 +15,12 @@ Rails.application.routes.draw do
 
   get 'admin/users' => 'admin/users#index'
   get 'admin/users/:id' => 'admin/users#show', as: :admin_user_view
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :account_activations, only: [:new,:create,:edit], as: :activate
+  get 'admin/blockings' => 'admin/blockings#index'
+  get 'admin/blockings/:category/:id' => 'admin/blockings#new', as: :admin_block
+  post 'admin/blockings/:category/:id' => 'admin/blockings#create', as: :admin_block_submit
+  put 'admin/blockings/:id/unblock' => 'admin/blockings#unblock', as: :admin_block_unblock
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

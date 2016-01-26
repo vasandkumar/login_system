@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-admin = User.create(:username => "admin", :email => "admin@mail.com", :password_digest => User.digest('admin'))
+admin = User.create(:username => "admin", :email => "admin@mail.com", :password_digest => User.digest('admin'), :activated => true, :activated_at => Time.now())
 
 admin_role = Role.create(:role_name => LOGIN_SYSTEM_ADMIN, :created_by => admin.id)
 

@@ -1,0 +1,29 @@
+<% if @blockings.present? %>
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>Type</th>
+        <th>Param</th>
+        <th>Reason</th>
+        <th>Current Status</th>
+        <th>Blocked By</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @blockings.each_with_index do |blocking,i| %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td><%= blocking.block_category %></td>
+            <td><%= blocking.block_type %></td>
+            <td><%= blocking.block_param %></td>
+            <td><%= blocking.reason %></td>
+            <td><%= blocking.current_status.to_s %></td>
+            <td><%= blocking.blocker.username %></td>
+            <td><%= link_to 'Unblock', admin_block_unblock_path(blocking.id), method: :put if blocking.current_status %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

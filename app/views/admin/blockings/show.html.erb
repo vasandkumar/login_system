@@ -1,0 +1,11 @@
+<% if @blocking.present? %>
+    <% @blocking.attributes.each do |blocking_data|%>
+        <div class="row placeholders">
+          <div class="col-xs-6 col-sm-3 placeholder">
+
+            <h4><%= blocking_data.first%></h4>
+            <span class="text-muted"><%= blocking_data.second%></span>
+          </div>
+        </div>
+    <% end %>
+<% end %>

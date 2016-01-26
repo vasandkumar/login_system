@@ -26,6 +26,9 @@
     <h4>Failed Attempts</h4>
     <span class="text-muted"><%= @user.login_attempts.where(:success => false).count %></span>
   </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <%= link_to "Back", admin_users_path , :class => 'btn btn-default' %> | <%= @user.blocked? ? (link_to "Unblock User", admin_block_unblock_path(:id => @user.blocking_id), :class => 'btn btn-default', method: :put) : (link_to "Block User", admin_block_url(:category => Blocking::CATEGORY_USER, :id => @user.id), :class => 'btn btn-default') %>
+  </div>
 </div>
 <% if @user.login_attempts.present? %>
     <table class="table table-condensed">
@@ -43,7 +46,7 @@
       <% @user.login_attempts.each_with_index do |attempt,i| %>
           <tr>
             <th scope="row"><%= i+1 %></th>
-            <td><%= attempt.ip_address %></td>
+            <td><%= attempt.ip_address %> | <%= link_to "Block IP Address", admin_block_url(:category => Blocking::CATEGORY_IP_ADDRESS, :id => attempt.ip_address) %></td>
             <td><%= attempt.country_name %></td>
             <td><%= attempt.city_name %></td>
             <td><%= attempt.real_region_name %></td>

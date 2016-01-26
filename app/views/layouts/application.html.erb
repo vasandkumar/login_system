@@ -10,6 +10,7 @@
 <body>
 <%= render 'layouts/header' %>
 <div id="main-container" class="container-fluid">
+  <%= flash_messages %>
   <div class="row">
     <div id="main-content" class="col-xs-12">
       <%= yield %>

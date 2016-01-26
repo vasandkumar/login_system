@@ -6,6 +6,8 @@
     <th>User Name</th>
     <th>Email</th>
     <th>Login Attempts</th>
+    <th>Activated</th>
+    <th>Blocked</th>
     <th>Action</th>
   </tr>
   </thead>
@@ -16,7 +18,9 @@
     <td><%= user.username %></td>
     <td><%= user.email %></td>
     <td><%= user.login_attempts.count %></td>
-    <td><%= link_to "View User", admin_user_view_path(user.id) %></td>
+    <td><%= user.activated.to_s %></td>
+    <td><%= user.blocked.to_s %></td>
+    <td><%= link_to "View User", admin_user_view_path(user.id) %> | <%= user.blocked? ? (link_to "Unblock User", admin_block_unblock_path(:id => user.blocking_id), :class => 'btn btn-default', method: :put) : (link_to "Block User", admin_block_url(:category => Blocking::CATEGORY_USER, :id => user.id), :class => 'btn btn-default') %></td>
   </tr>
   <% end %>
   </tbody>
