@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'password_resets/edit'
 
-  root 'sessions#new'
+  root 'home#index'
   resources :users
 
   get 'login' => 'sessions#new'
